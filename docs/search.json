@@ -1,0 +1,436 @@
+[
+  {
+    "objectID": "index.html#introducción",
+    "href": "index.html#introducción",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Introducción",
+    "text": "Introducción\n\n\nEn este módulo aprenderemos a hacer uso del paquete ggplot2 del tidyverse.\nA la par, veremos estrategias de llevar a cabo analisis exploratorio de datos (AED) ya que este depende mayoritariamente de ayudas visuales.\nUsaremos además los datos del paquete palmerpenguins así también como los datos del archivo de Excel “rotaXLS.xlsx”.\nPaquetes adicionales: viridis, ggsci, patchwork, finalfit, GGally:\ninstall.packages(\"viridis\", \"ggsci\", \"patchwork\", \"finalfit\", \"GGally\")\nAprenderemos entonces, paso a paso cómo funciona ggplot2 dando un vistazo a sus funciones y objetos."
+  },
+  {
+    "objectID": "index.html#ggplot2",
+    "href": "index.html#ggplot2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "ggplot2",
+    "text": "ggplot2\n\n\nggplot2 es un paquete de gráficos creada por Hadley Wickham en 2005 como una opción alternativa a los gráficos base de R (es de hecho este paquete el que inició el tidyverse).\nSe basa en añadir elementos a un gráfico capa por capa.\nTanto tablas anchas como largas pueden suministrarse a ggplot2. Sin embargo, en la mayoría de los casos, se explotan más sus capacidades al utilizar tablas largas.\nPresenta varias ventajas, entre ellas:\n\nMayor versatilidad al integrar funciones predeterminadas que permiten cambiar entre tipos de gráficos fácil y rápidamente.\nAmplia variedad de paletas de color y estilos (útiles para crear gráficos profesionales y listos para publicación).\nBasta cantidad de librerías accesorias para gráficos especializados.\n\nSu funcionamiento se basa principalmente en:\n\nEl argumento de mapeo (mapping)\ny, Geometrías (geom_)."
+  },
+  {
+    "objectID": "index.html#función-de-inicio-ggplot",
+    "href": "index.html#función-de-inicio-ggplot",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Función de inicio ggplot",
+    "text": "Función de inicio ggplot\n\n\nConstituye la primera capa o la base para llevar a cabo un gráfico.\nPosee dos argumentos principales:\n\ndata para indicar la tabla de datos a usarse\nmapping para indicar las variables que gobernarán los ejes coordenados del gráfico"
+  },
+  {
+    "objectID": "index.html#función-de-inicio-ggplot-1",
+    "href": "index.html#función-de-inicio-ggplot-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Función de inicio ggplot",
+    "text": "Función de inicio ggplot\n\nCódigoGráfico\n\n\n\nlibrary(palmerpenguins)\nlibrary(ggplot2)\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm))"
+  },
+  {
+    "objectID": "index.html#geometrías",
+    "href": "index.html#geometrías",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Geometrías",
+    "text": "Geometrías\n\n\nLas geometrías son objetos que serán superpuestos en la base creada por la función de inicio.\nEn general, están nombradas con la preposición geom_ seguida de su clase.\nExisten una variedad amplia de geometrías:\n\ngeom_bar para gráficos de barras\ngeom_line para gráficos de lineas\ngeom_boxplot para gráficos de caja y bigote\ngeom_histogram para histogramas\ngeom_density para densidades\nentre otras\n\nPara añadir geometrías y otras opciones a nuestro gráfico base usamos los operadores:\n\n+, ó\n%+%. Este último no es tan común, ya que sobre-escribe los datos originales."
+  },
+  {
+    "objectID": "index.html#geometrías-1",
+    "href": "index.html#geometrías-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Geometrías",
+    "text": "Geometrías\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm)) +\n  geom_point()"
+  },
+  {
+    "objectID": "index.html#estéticas-de-las-geometrías-aesthetics",
+    "href": "index.html#estéticas-de-las-geometrías-aesthetics",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Estéticas de las geometrías (aesthetics)",
+    "text": "Estéticas de las geometrías (aesthetics)\n\n\nLas geometrías tienen argumentos en común independientemente de sus específicos usos.\nEntre estas están:\n\nalpha determina el nivel de transparencia (entre 0 y 1).\nfill determina el color de relleno de una geometría. Puede ser agregado de manera manual o en función de otra variable.\ncolor o colour determina el color del contorno de una geometría. Puede ser agregado de manera manual o en función de otra variable.\n\nExisten aesthetics más específicos que funcionarán únicamente con ciertas geometrías, tales como:\n\nsize, determina el tamaño de los puntos en la geometría de puntos (geom_point)\nlinetype, con 6 posibles valores permite seleccionar el estilo de línea.\nlinewidth determina el grosor de una línea.\nlineend determina el estilo de los extremos de una línea.\nshape determina el estilo de los puntos a mostrarse (25 posibles estilos)"
+  },
+  {
+    "objectID": "index.html#estéticas-de-las-geometrías-aesthetics-1",
+    "href": "index.html#estéticas-de-las-geometrías-aesthetics-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Estéticas de las geometrías (aesthetics)",
+    "text": "Estéticas de las geometrías (aesthetics)\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm)) +\n  geom_point(alpha = 0.25, color = \"red\", size = 5)"
+  },
+  {
+    "objectID": "index.html#agrupaciones",
+    "href": "index.html#agrupaciones",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Agrupaciones",
+    "text": "Agrupaciones\n\nSe pueden asignar estéticas dependiendo de los grupos presentes en los datos.\nPodemos definirlo en la función de mapeo.\n\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5)"
+  },
+  {
+    "objectID": "index.html#escalas",
+    "href": "index.html#escalas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Escalas",
+    "text": "Escalas\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2))"
+  },
+  {
+    "objectID": "index.html#paletas-de-color",
+    "href": "index.html#paletas-de-color",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Paletas de color",
+    "text": "Paletas de color\n\n\nUna de las razones por las cuales ggplot2 es tan popular, es la relativa sencillez de usar distintas paletas de color.\nAl no ser un curso dedicado a visualización de datos, nos limitaremos a explorar la oferta de mis dos librerías preferidas para paletas de color con ggplot2.\nviridis ofrece 8 paletas de color basadas en secuencias de azul y amarillo que evitan en la medida de lo posible el color rojo. Es recomendada por ciertos Journals al ser amigable con personas daltónicas.\nggsci ofrece varias paletas de color inspiradas en los colores usados por distintos journals (por ejemplo: Nature, Lancet entre otros), además de paletas inspiradas en series de televisión (por ejemplo: Futurama, Rick & Morty entre otros)."
+  },
+  {
+    "objectID": "index.html#paletas-de-color-1",
+    "href": "index.html#paletas-de-color-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Paletas de color",
+    "text": "Paletas de color\n\nCódigoGráfico\n\n\n\nlibrary(viridis)\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_viridis(discrete = T)"
+  },
+  {
+    "objectID": "index.html#paletas-de-color-2",
+    "href": "index.html#paletas-de-color-2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Paletas de color",
+    "text": "Paletas de color\n\nCódigoGráfico\n\n\n\nlibrary(ggsci)\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_futurama()"
+  },
+  {
+    "objectID": "index.html#facetas",
+    "href": "index.html#facetas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Facetas",
+    "text": "Facetas\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_futurama() +\n  facet_wrap(~island)"
+  },
+  {
+    "objectID": "index.html#etiquetas",
+    "href": "index.html#etiquetas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Etiquetas",
+    "text": "Etiquetas\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_futurama() +\n  facet_wrap(~island) +\n  labs(title = \"Largo de pico vs. Profundidad de pico\",\n       subtitle = \"Pingüinos de Palmer\",\n       caption = \"Gráfica propia\",\n       x = \"Largo del pico\",\n       y = \"Profundidad del pico\",\n       color = \"Especie\")"
+  },
+  {
+    "objectID": "index.html#estilos",
+    "href": "index.html#estilos",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Estilos",
+    "text": "Estilos\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_futurama() +\n  facet_wrap(~island) +\n  labs(title = \"Largo de pico vs. Profundidad de pico\",\n       subtitle = \"Pingüinos de Palmer\",\n       caption = \"Gráfica propia\",\n       x = \"Largo del pico\",\n       y = \"Profundidad del pico\",\n       color = \"Especie\") +\n  theme_bw()"
+  },
+  {
+    "objectID": "index.html#gráficos-como-objetos",
+    "href": "index.html#gráficos-como-objetos",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos como objetos",
+    "text": "Gráficos como objetos\n\nCódigoGráfico\n\n\n\ngrafico1 &lt;- ggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_futurama() +\n  facet_wrap(~island) +\n  labs(title = \"Largo de pico vs. Profundidad de pico\",\n       subtitle = \"Pingüinos de Palmer\",\n       caption = \"Gráfica propia\",\n       x = \"Largo del pico\",\n       y = \"Profundidad del pico\",\n       color = \"Especie\") +\n  theme_bw()\n\ngrafico2 &lt;- grafico1 + theme_classic()\ngrafico2"
+  },
+  {
+    "objectID": "index.html#geometrías-estadísticas",
+    "href": "index.html#geometrías-estadísticas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Geometrías estadísticas",
+    "text": "Geometrías estadísticas\n\n\nOtra funcionalidad importante son las geometrías estadísticas. Entre ellas:\ngeom_smooth: grafica regresiones sobre nubes de puntos\ngeom_errorbar y geom_errorbarh: grafican lineas de error verticales y horizontales respectivamente.\ngeom_ribbon: grafica nubes sombreadas que pueden representar varios estadísticos como errores estándar, intervalos de confianza, etc."
+  },
+  {
+    "objectID": "index.html#geometrías-estadísticas-1",
+    "href": "index.html#geometrías-estadísticas-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Geometrías estadísticas",
+    "text": "Geometrías estadísticas\n\nCódigoGráfico\n\n\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_x_continuous(breaks = seq(30, 60, 5)) +\n  scale_y_continuous(breaks = seq(10, 24, 2)) +\n  scale_color_futurama() +\n  facet_wrap(~island) +\n  geom_smooth(method = \"lm\") +\n  labs(title = \"Largo de pico vs. Profundidad de pico\",\n       subtitle = \"Pingüinos de Palmer\",\n       caption = \"Gráfica propia\",\n       x = \"Largo del pico\",\n       y = \"Profundidad del pico\",\n       color = \"Especie\") +\n  theme_bw()"
+  },
+  {
+    "objectID": "index.html#autoevaluación-7",
+    "href": "index.html#autoevaluación-7",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Autoevaluación # 7",
+    "text": "Autoevaluación # 7\n\ntheme_light produce gráficos como\n\n\n\n\n\n\n\n\n\n\n\n\n\nEl siguiente gráfico\n\n\n\n\n\n\n\n\n\n\n\nEs producido por el(los) código(s):\n\n\n\n\nggplot(iris, aes(y=Petal.Width)) + \n  geom_boxplot(aes(fill=Species))\n\n\n\n\n\nggplot(iris, aes(y=Petal.Width, color=Species)) + \n  geom_boxplot()\n\n\n\n\n\nggplot(iris, aes(y=Petal.Width, fill=Species)) + \n  geom_boxplot()\n\n\n\n\n\n\nPara obtener el siguiente gráfico:\n\n\n\n\n\n\n\n\n\n\n\nDebo modificar la última línea del código:\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_color_viridis()\n\n\n\npor:\n\nscale_color_viridis(option = \"G\")\nscale_color_viridis(discrete = T, option = \"G\")\nscale_color_viridis(discrete = T, option = \"H\")"
+  },
+  {
+    "objectID": "index.html#datos-perdidos",
+    "href": "index.html#datos-perdidos",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Datos perdidos",
+    "text": "Datos perdidos\n\n\nLa perdida de datos es común en casi todo experimento, sobre todo en aquellos de naturaleza observacional.\nEl primer paso que recomiendo en un análisis exploratorio, es checar si existen o no datos perdidos.\nEsto por cuanto así se prevee si los métodos de inferencia a usarse necesitan o no ser corregidos.\nÚnicamente cuando la severidad de la pérdida de datos es muy grande aconsejo a recurrir a estas dos opciones (en orden de complejidad estadística de menor a mayor)\n\nRepetir el experimento\nLlevar a cabo imputación de datos\n\nEn este curso vamos a limitarnos a usar métodos de análisis corregidos cuando estemos ante la presencia de datos perdidos ya que la imputación de datos requiere de conocimientos teóricos extensos acerca de los tipos de mecanismos de pérdida de datos.\nEVITAR el reemplazar los valores perdidos por ceros. Esta suele ser una práctica más o menos común pero que introduce mayores problemas que los que “soluciona”.\nEn resumen, no hay que temer el contar con datos perdidos, siempre y cuando estos no sean masivos."
+  },
+  {
+    "objectID": "index.html#datos-perdidos-1",
+    "href": "index.html#datos-perdidos-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Datos perdidos",
+    "text": "Datos perdidos\n\nlibrary(finalfit)\nff_glimpse(penguins)"
+  },
+  {
+    "objectID": "index.html#datos-perdidos-2",
+    "href": "index.html#datos-perdidos-2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Datos perdidos",
+    "text": "Datos perdidos\n\nlibrary(finalfit)\nff_glimpse(penguins)\n\n$Continuous\n                              label var_type   n missing_n missing_percent\nbill_length_mm       bill_length_mm    &lt;dbl&gt; 342         2             0.6\nbill_depth_mm         bill_depth_mm    &lt;dbl&gt; 342         2             0.6\nflipper_length_mm flipper_length_mm    &lt;int&gt; 342         2             0.6\nbody_mass_g             body_mass_g    &lt;int&gt; 342         2             0.6\nyear                           year    &lt;int&gt; 344         0             0.0\n                    mean    sd    min quartile_25 median quartile_75    max\nbill_length_mm      43.9   5.5   32.1        39.2   44.5        48.5   59.6\nbill_depth_mm       17.2   2.0   13.1        15.6   17.3        18.7   21.5\nflipper_length_mm  200.9  14.1  172.0       190.0  197.0       213.0  231.0\nbody_mass_g       4201.8 802.0 2700.0      3550.0 4050.0      4750.0 6300.0\nyear              2008.0   0.8 2007.0      2007.0 2008.0      2009.0 2009.0\n\n$Categorical\n          label var_type   n missing_n missing_percent levels_n\nspecies species    &lt;fct&gt; 344         0             0.0        3\nisland   island    &lt;fct&gt; 344         0             0.0        3\nsex         sex    &lt;fct&gt; 333        11             3.2        2\n                                 levels levels_count   levels_percent\nspecies \"Adelie\", \"Chinstrap\", \"Gentoo\" 152, 68, 124       44, 20, 36\nisland   \"Biscoe\", \"Dream\", \"Torgersen\" 168, 124, 52       49, 36, 15\nsex       \"female\", \"male\", \"(Missing)\" 165, 168, 11 48.0, 48.8,  3.2"
+  },
+  {
+    "objectID": "index.html#datos-perdidos-3",
+    "href": "index.html#datos-perdidos-3",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Datos perdidos",
+    "text": "Datos perdidos\n\nlibrary(finalfit)\nff_glimpse(penguins)\nmissing_plot(penguins)"
+  },
+  {
+    "objectID": "index.html#datos-perdidos-4",
+    "href": "index.html#datos-perdidos-4",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Datos perdidos",
+    "text": "Datos perdidos\n\nmissing_plot(penguins)"
+  },
+  {
+    "objectID": "index.html#datos-perdidos-5",
+    "href": "index.html#datos-perdidos-5",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Datos perdidos",
+    "text": "Datos perdidos\n\nCódigoGráfico\n\n\n\nsub_penguins &lt;- na.omit(penguins)\nggplot(sub_penguins,\n       aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +\n  geom_point(alpha = 0.7,\n             size = 3) +\n  geom_smooth(method = \"lm\") + \n  scale_x_continuous(breaks = seq(150, 250, 10)) +\n  scale_y_continuous(breaks = seq(2500, 7000, 500)) +\n  scale_color_viridis(discrete = T) +\n  facet_wrap(~sex) +\n  labs(title = \"Largo de aleta vs. peso\",\n       subtitle = \"Pingüinos de Palmer\",\n       caption = \"Gráfica propia\",\n       x = \"Largo de aleta\",\n       y = \"Peso\",\n       color = \"Especie\") +\n  theme_bw()"
+  },
+  {
+    "objectID": "index.html#observaciones-anormales-outliers",
+    "href": "index.html#observaciones-anormales-outliers",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Observaciones anormales (outliers)",
+    "text": "Observaciones anormales (outliers)\n\n\nUn outlier puede definirse como aquella observación que dista considerablemente de la mediana de una población.\nPueden deberse a errores en la toma de mediciones o valores que realmente existen.\nEn estadística, una entre varias definiciones de outlier es dada de acuerdo al criterio del Rango Intercuartílico (RIC o IQR en inglés).\nEste criterio establece que toda observación por encima del tercer cuartil + 1.5 veces el RIC o por debajo del primer cuartil - 1.5 veces el RIC es considerada como outlier.\n\n\n\n\\[\nI=\\left[C_{0.25}-1.5 \\times RIC ,\\,C_{0.75}+1.5 \\times RIC \\right]\n\\]\n\n\nDonde el RIC es sencillamente la diferencia entre el primer y el tercer cuartil de una muestra.\nEste método es precisamente la base para los gráficos de caja y bigote."
+  },
+  {
+    "objectID": "index.html#gráficos-de-caja-y-bigote",
+    "href": "index.html#gráficos-de-caja-y-bigote",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de caja y bigote",
+    "text": "Gráficos de caja y bigote\n\n\n\nUn gráfico de caja y bigote es el resumen de 5 cantidades de importancia para explorar una distribución: la mediana, los cuantiles 1 y 3 y los valores mínimo y máximo de una distribución en función del RIC\n\n\n\nImagen de autoría de Michael Galarnyk"
+  },
+  {
+    "objectID": "index.html#gráficos-de-caja-y-bigote-en-r-base",
+    "href": "index.html#gráficos-de-caja-y-bigote-en-r-base",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de caja y bigote en R base",
+    "text": "Gráficos de caja y bigote en R base\n\nCódigoGráfico\n\n\n\npar(mfrow = c(2, 2))\nplot(bill_depth_mm ~ island, data = penguins)\nplot(bill_depth_mm ~ sex, data = penguins)\nplot(bill_depth_mm ~ species, data = penguins)\nplot.new()\npar(mfrow = c(1, 1))"
+  },
+  {
+    "objectID": "index.html#gráficos-de-caja-y-bigote-en-r-base-1",
+    "href": "index.html#gráficos-de-caja-y-bigote-en-r-base-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de caja y bigote en R base",
+    "text": "Gráficos de caja y bigote en R base\n\n\nLos gráficos base de R son de rápida implementación.\nGeneralmente sirven para dar vistazos rápidos a los datos.\nPueden por supuesto ser usados para productos finales de publicación, pero la sintaxis para dar formato y exportarlos es un tanto confusa (a mi parecer).\nTienen sus limitaciones, ¿qué tal si en este caso me hubiese gustado realizar un gráfico por facetas para ver más variables categóricas al mismo tiempo?"
+  },
+  {
+    "objectID": "index.html#gráficos-de-caja-y-bigote-en-ggplot2",
+    "href": "index.html#gráficos-de-caja-y-bigote-en-ggplot2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de caja y bigote en ggplot2",
+    "text": "Gráficos de caja y bigote en ggplot2\n\nCódigoGráfico\n\n\n\nsub_penguins &lt;- na.omit(penguins)\nggplot(sub_penguins,\n       aes(y = bill_depth_mm, x = species, fill = species)) +\n  geom_boxplot(outlier.fill = \"red\",\n               outlier.shape = 23) +\n  facet_grid(~sex~island) + \n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "index.html#y-ahora-qué-hago-con-los-outliers",
+    "href": "index.html#y-ahora-qué-hago-con-los-outliers",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Y ahora, ¿qué hago con los outliers?",
+    "text": "Y ahora, ¿qué hago con los outliers?"
+  },
+  {
+    "objectID": "index.html#y-ahora-qué-hago-con-los-outliers-1",
+    "href": "index.html#y-ahora-qué-hago-con-los-outliers-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Y ahora, ¿qué hago con los outliers?",
+    "text": "Y ahora, ¿qué hago con los outliers?\n\n\nEl remover outliers no se aconseja antes de llevar a cabo análisis de inferencia estadística.\nPara remover outliers antes de analizar propiamente los datos, se necesita tener certeza de las razones por las cuales estos fueron registrados:\n\nFallas comprobadas en el equipo de medición\nErrores al escribir las mediciones en el medio de registro (libro de laboratorio, base de datos)\nFalencias en las técnicas, metodologías o materiales que ayudaron en la toma de las observaciones (reactivos expirados, protocolos mal interpretados o descontinuados)\nSi las anteriores no se cumplen, tener respaldo bibliográfico o experiencia de que el valor del outlier es improbable en la población sujeto de estudio.\n\nMuchas veces, los aparentes outliers no tienen mayor efecto en las inferencias que se realicen. Y en los casos extremos de considerar su remoción, se puede recurrir a transformaciones de los datos. En otras palabras, el último recurso es removerlos.\nCuando llegado el caso, no existe otra opción, debería ser una obligación el reportar las razones para no considerarlos en el análisis (integridad científica)."
+  },
+  {
+    "objectID": "index.html#cómo-remuevo-outliers",
+    "href": "index.html#cómo-remuevo-outliers",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "¿Cómo remuevo outliers?",
+    "text": "¿Cómo remuevo outliers?\n\n\nLa respuesta más simple: borrarlos de la base de datos antes de cargarla en R.\nSin embargo, a veces trabajamos con tablas de datos extensas, y la remoción manual puede ser larga, tediosa y sujeta a errores que podrían empeorar la situación.\nPara ilustrar cómo hacerlo en R, vamos a recurrir a un ejemplo más sencillo donde solo lidiemos con una variable categórica a la vez. Así, veamos únicamente al caso de las variables bill_length_mm y species\n\n\n\n\nboxplot(bill_length_mm ~ species, data = penguins)"
+  },
+  {
+    "objectID": "index.html#cómo-remuevo-outliers-1",
+    "href": "index.html#cómo-remuevo-outliers-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "¿Cómo remuevo outliers?",
+    "text": "¿Cómo remuevo outliers?\n\noutliers &lt;- boxplot(bill_length_mm ~ species, data = sub_penguins, plot = F)$out\nx &lt;- sub_penguins\nx &lt;- x[-which(x$bill_length_mm %in% outliers), ]"
+  },
+  {
+    "objectID": "index.html#cómo-remuevo-outliers-2",
+    "href": "index.html#cómo-remuevo-outliers-2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "¿Cómo remuevo outliers?",
+    "text": "¿Cómo remuevo outliers?\n\noutliers &lt;- boxplot(bill_length_mm ~ species, data = sub_penguins, plot = F)$out\nx &lt;- sub_penguins\nx &lt;- x[-which(x$bill_length_mm %in% outliers), ]\nboxplot(bill_length_mm ~ species, data = x)"
+  },
+  {
+    "objectID": "index.html#autoevaluación-8",
+    "href": "index.html#autoevaluación-8",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Autoevaluación # 8",
+    "text": "Autoevaluación # 8\nLos datos del archivo de excel “rotXLS.xlsx” que mencionamos brevemente en el segundo módulo contiene información sobre el conteo de casos de rotavirus en Berlín desde el año 2001 hasta el 2020. Las variables de esta tabla de datos son:\n\n\n\ndate: fecha de cierre de la toma de datos\ncases: número de casos de rotavirus en la semana\nweek: semana epidemiológica\nincidence: número de casos/100000 habitantes\nFM: media diaria de velocidad del viento (m/s)\nRSK: media diaria de lluvia (mm)\n\n\n\nSHK_TAG: media diaria de nieve (cm)\nPM: media diaria de presión atmosférica (hPa)\nTMK: media diaria de temperatura (°C)\nTXK: media diaria de temperatura máxima (°C)\nTNK: media diaria de temperatura mínima (°C)\nUPM: media diaria de humedad relativa (%)\n\n\n\nUna vez que hayamos especificado el directorio de trabajo, podemos importar esta tabla con el siguiente código:\n\nlibrary(readxl)                           \nrot_berlin &lt;- read_excel(\"rotXLS.xlsx\")\n\n\n\n\nIgnorando por un momento la naturaleza longitudinal de estos datos, podemos crear un gráfico de múltiples cajas de bigotes por semana epidemiológica para el número de casos, que se vería de esta manera:\n\n\n\n\n\n\n\n\n\n\n\n\n\nCon el siguiente código:\n\n\n\n\nggplot(rot_berlin, aes(x = week, y = cases)) +\n  geom_boxplot()\n\n\n\n\n\nggplot(rot_berlin, aes(x = factor(week), y = cases)) +\n  geom_boxplot()\n\n\n\n\n\nggplot(rot_berlin, aes(x = week, y = cases, group = week)) +\n  geom_boxplot()\n\n\nCon lo que hemos aprendido hasta el momento, si quisiéramos identificar y remover posibles outliers, podríamos usar el siguiente código:\n\n\nout_rot &lt;- boxplot(cases ~ factor(week), data = rot_berlin, plot = F)$out\nsub_rot &lt;- rot_berlin\nsub_rot &lt;- sub_rot[-which(sub_rot$cases %in% out_rot), ]\n\nEl número de outliers detectados es:\n\n\n\n232\n\n\n\n323\n\n\n\n156\n\n\n\n212\n\n\n\n\n\n\nMirando el gráfico de cajas y bigotes de sub_rot, podríamos llevar a cabo sucesivas nuevas identificaciones y remociones de outliers hasta terminar con un gráfico ya sin puntos fuera de los RIC. Teniendo en cuenta esto, cuál(es) de las siguientes afirmaciones es(son) verdadera(s)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo importa cuántas veces repita el proceso, eliminar todo outlier es una buena práctica\nAl eliminar un outlier, no hay garantía que otra observación se convierta en uno.\nSe aconsejaría remover outliers una sola vez, y continuar con los análisis.\nParecería que el RIC no sería un criterio suficiente para remover outliers."
+  },
+  {
+    "objectID": "index.html#relaciones-lineales",
+    "href": "index.html#relaciones-lineales",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Relaciones lineales",
+    "text": "Relaciones lineales\n\n\nEl dar un vistazo a relaciones lineales entre variables continuas también nos puede dar una idea de la presencia de outliers.\nAdicionalmente, nos permite visualizar arreglos/patrones en los datos que responden a la influencia de variables de agrupación (en el ejemplo de los pingüinos ya vimos que las especies y las islas determinan algún tipo de arreglo).\nTambién nos dan una idea de las correlaciones entre las variables. Esto es de mayor importancia en los casos que tenemos en mente llevar a cabo análisis multivariables.\nPor ejemplo, en análisis de covarianza (cuando una o más variables explanatorias son continuas), no tiene sentido el incluir variables altamente correlacionadas entre sí.\nPara esto, la forma más sencilla es llevar a cabo gráficos de dispersión para tantos pares posibles de combinaciones de variables continuas tengamos.\nEsto obviamente sería tedioso y propenso a errores si lo llevamos a cabo de manera manual.\nAfortunadamente R nos ofrece varias formas de llevar a cabo matrices de gráficos de dispersión"
+  },
+  {
+    "objectID": "index.html#matrices-de-dispersión-en-r-base",
+    "href": "index.html#matrices-de-dispersión-en-r-base",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Matrices de dispersión en R base",
+    "text": "Matrices de dispersión en R base\n\nCódigoGráfico\n\n\n\nmatriz_penguins &lt;- penguins[,c(\"bill_length_mm\",\n                               \"bill_depth_mm\",\n                               \"flipper_length_mm\",\n                               \"body_mass_g\")]\npairs(matriz_penguins)"
+  },
+  {
+    "objectID": "index.html#matrices-de-dispersión-en-ggplot2",
+    "href": "index.html#matrices-de-dispersión-en-ggplot2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Matrices de dispersión en ggplot2",
+    "text": "Matrices de dispersión en ggplot2\n\nCódigoGráfico\n\n\n\nlibrary(GGally)\nggpairs(matriz_penguins)"
+  },
+  {
+    "objectID": "index.html#histogramas",
+    "href": "index.html#histogramas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Histogramas",
+    "text": "Histogramas\n\n\nUn histograma es un gráfico estadístico que divide una variable continua en un determinado número de rangos y luego cuenta el número de veces que los datos caen en cada uno de ellos para producir una barra por rango.\nSirve como un diagnóstico de la distribución de una muestra.\nDesde la perspectiva del AED, nos da una idea visual de si las variables se alejan de la normalidad.\n\nEsto último podría dar indicaciones de si es necesaria una transformación.\n¡Pero!… no es recomendable empezar transformando variables directamente hasta no conducir un análisis formal."
+  },
+  {
+    "objectID": "index.html#histogramas-en-r-base-y-ggplot2",
+    "href": "index.html#histogramas-en-r-base-y-ggplot2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Histogramas en R base y ggplot2",
+    "text": "Histogramas en R base y ggplot2\n\n\n\nhist(penguins$bill_length_mm)\n\n\n\n\n\n\n\n\n\n\nhist(penguins$bill_length_mm, breaks = 50)\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(penguins, aes(x = bill_length_mm)) +\n  geom_histogram()\n\n\n\n\n\n\n\n\n\n\nggplot(penguins, aes(x = bill_length_mm)) +\n  geom_histogram(bins = 50)"
+  },
+  {
+    "objectID": "index.html#gráficos-de-densidad",
+    "href": "index.html#gráficos-de-densidad",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de densidad",
+    "text": "Gráficos de densidad\n\nCódigoGráfico\n\n\n\nggplot(sub_penguins,\n       aes(x = bill_depth_mm, group=species, fill = species)) +\n  geom_density(alpha = 0.4)"
+  },
+  {
+    "objectID": "index.html#gráficos-de-barras",
+    "href": "index.html#gráficos-de-barras",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de barras",
+    "text": "Gráficos de barras\n\nCódigoGráfico\n\n\n\nggplot(penguins,\n       aes(x = species)) +\n  geom_bar()"
+  },
+  {
+    "objectID": "index.html#gráficos-de-barras-apiladas",
+    "href": "index.html#gráficos-de-barras-apiladas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de barras apiladas",
+    "text": "Gráficos de barras apiladas\n\nCódigoGráfico\n\n\n\nggplot(penguins,\n       aes(x = island,\n           fill = species)) +\n  geom_bar(position = \"stack\")"
+  },
+  {
+    "objectID": "index.html#mapas-de-calor-en-r-base",
+    "href": "index.html#mapas-de-calor-en-r-base",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Mapas de calor en R base",
+    "text": "Mapas de calor en R base\n\nGráfico bidimensional de datos en donde los valores son representados con colores.\nLas variables de los ejes deben ser categóricas, y la intensidad de los colores en el plano coordenado depende de la magnitud de una variable continua.\n\n\nCódigoGráfico\n\n\n\nmapa_calor_base &lt;- as.matrix(mtcars)\nheatmap(mapa_calor_base)"
+  },
+  {
+    "objectID": "index.html#mapas-de-calor-con-heatmaply",
+    "href": "index.html#mapas-de-calor-con-heatmaply",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Mapas de calor con heatmaply",
+    "text": "Mapas de calor con heatmaply\n\nGráfico bidimensional de datos en donde los valores son representados con colores.\nLas variables de los ejes deben ser categóricas, y la intensidad de los colores en el plano coordenado depende de la magnitud de una variable continua.\n\n\nCódigoGráfico\n\n\n\ninstall.packages(\"heatmaply\", dependencies = T)\nlibrary(heatmaply)\nheatmaply(\n  mtcars,\n  scale_fill_gradient_fun = ggplot2::scale_fill_gradient2(\n    low = \"blue\", \n    high = \"red\", \n    midpoint = 200, \n    limits = c(0, 500)\n  )\n)"
+  },
+  {
+    "objectID": "index.html#gráficos-de-líneas",
+    "href": "index.html#gráficos-de-líneas",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de líneas",
+    "text": "Gráficos de líneas\n\nCódigoGráfico\n\n\n\nggplot(rot_berlin,\n       aes(x = date,\n           y = cases)) +\n  geom_line()"
+  },
+  {
+    "objectID": "index.html#gráficos-de-líneas-con-estadísticos-descriptivos",
+    "href": "index.html#gráficos-de-líneas-con-estadísticos-descriptivos",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Gráficos de líneas con estadísticos descriptivos",
+    "text": "Gráficos de líneas con estadísticos descriptivos\n\nCódigoGráfico\n\n\n\nlibrary(lubridate)\nlibrary(dplyr)\n\nrot_berlin$mes &lt;- month(rot_berlin$date)\nrot_berlin$year &lt;- year(rot_berlin$date)\ntemp_berlin &lt;- rot_berlin %&gt;%\n  group_by(mes) %&gt;%\n  summarise(n = n(),\n            media = mean(TMK),\n            desv = sd(TMK),\n            s.err = desv/sqrt(n)) \n\ngrafico3 &lt;- ggplot(temp_berlin,\n       aes(x = factor(mes),\n           y = media,\n           group = 1)) +\n  geom_point() +\n  geom_line() +\n  geom_errorbar(aes(ymin = media - s.err,\n                    ymax = media + s.err),\n                width = .3)\ngrafico3"
+  },
+  {
+    "objectID": "index.html#combinando-y-exportando-gráficos-de-ggplot2",
+    "href": "index.html#combinando-y-exportando-gráficos-de-ggplot2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Combinando y exportando gráficos de ggplot2",
+    "text": "Combinando y exportando gráficos de ggplot2\n\n\nUn reto que hemos todos encontrado alguna vez es el de combinar varios gráficos en uno solo.\nEsto requiere paciencia y el uso de software externo (llámese CorelDraw, Adobe Illustrator, PowerPoint o incluso Paint).\nLa librería complementaria patchwork nos permite combinar gráficos de ggplot2 de una manera sencilla y rápida.\nAdemás, gracias a la función ggsave de ggplot2 podemos exportar fácilmente nuestros gráficos sin requerir (ojalá) a la ayuda de software externo para dar retoques finales a estos gráficos."
+  },
+  {
+    "objectID": "index.html#combinando-gráficos-con-patchwork",
+    "href": "index.html#combinando-gráficos-con-patchwork",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Combinando gráficos con patchwork",
+    "text": "Combinando gráficos con patchwork\n\nCódigoGráfico\n\n\n\nlibrary(patchwork)\ngraficofinal &lt;- (grafico1 | grafico2) / grafico3\ngraficofinal + plot_annotation(tag_levels = 'A')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPara más información de las funciones y utilidades de patchwork puedes visitar la página oficial con su documentación y ejemplos."
+  },
+  {
+    "objectID": "index.html#exportando-gráficos-de-ggplot",
+    "href": "index.html#exportando-gráficos-de-ggplot",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Exportando gráficos de ggplot",
+    "text": "Exportando gráficos de ggplot\n\ngraficofinal_estavezsi &lt;- graficofinal + plot_annotation(tag_levels = 'A')\nggsave(\"grafico.png\", plot = graficofinal_estavezsi)"
+  },
+  {
+    "objectID": "index.html#anatomía-de-un-ggplot",
+    "href": "index.html#anatomía-de-un-ggplot",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Anatomía de un ggplot",
+    "text": "Anatomía de un ggplot\n\n\nImagen tomada de aquí"
+  },
+  {
+    "objectID": "index.html#más-exploración",
+    "href": "index.html#más-exploración",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Más exploración",
+    "text": "Más exploración\n\n\nLo que hemos revisado hasta el momento, son las técnicas más frecuentemente usadas para AED.\nSin embargo, existen librerías de R que permiten también hacer AED de una manera automática y más accesible.\nComo ejemplos, haremos un enfoque en dos librerías que hacen uso de Shiny para brindar esta experiencia al usuario. Estas son explore y dataxray\n\n\n\n\nlibrary(explore)\nexplore(penguins)\n\ninstall.packages(\"devtools\")\ninstall.packages(\"flexdashboard\")\ndevtools::install_github(\"agstn/dataxray\")\nlibrary(dataxray)\nreport_xray(data = penguins, data_name = 'penguins', study = \"ggplot2\")"
+  },
+  {
+    "objectID": "index.html#funciones-y-librerías-en-esta-sesión",
+    "href": "index.html#funciones-y-librerías-en-esta-sesión",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Funciones y librerías en esta sesión",
+    "text": "Funciones y librerías en esta sesión\nFunciones\n\nseq genera una secuencia de números.\nna.omit remueve observaciones perdidas.\nplot función de ploteo de R base. Produce diversos gráficos, entre ellos: dispersión, líneas y caja y bigotes.\npar es una función que permite configurar parámetros gráficos de R base. Su uso más común es para setear los cuadrantes del gráfico.\nplot.new produce un gráfico completamente en blanco en R base. Es útil para rellenar cuadrantes de un gráfico (cuando el número de cuadrantes es par y los gráficos a distribuir por cuadrante es impar).\n:: operando de localización de objetos. Se lo utiliza para llamar objetos de librerías sin necesidad de cargarlas en la sesión.\n\nLibrerías\n\npalmerpenguins\nggplot2 es un paquete con una basta cantidad de funciones para llevar a cabo gráficos.\n\nggplot es la función que da inicio a todo objeto de ggplot2.\ngeom_ es el prefijo de todas las geometrías de ggplot2.\nggsave permite exportar gráficos de ggplot a diferentes formatos como .png, .jpg, .pdf.\n\nviridis es un paquete que ofrece 8 paletas de color basadas en secuencias de azul y amarillo (amigable con personas daltónicas).\nggsci ofrece paletas de color basadas en journals y series de televisión.\nfinalfit nos permite realizar exploración de los patrones de datos perdidos.\nGGally es un paquete con funcionalidades extras basadas en ggplot2. Aquí nos enfocamos en su uso para realizar gráficos de matrices de variables."
+  },
+  {
+    "objectID": "index.html#antes-de-terminar-1",
+    "href": "index.html#antes-de-terminar-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Antes de terminar…",
+    "text": "Antes de terminar…\nThemePark\n\nEste paquete comenzó como una especie de broma a partir del estreno de la película de Barbie.\nEs básicamente una librería de paletas de color, primeramente basadas en Barbie"
+  },
+  {
+    "objectID": "index.html#antes-de-terminar-2",
+    "href": "index.html#antes-de-terminar-2",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Antes de terminar…",
+    "text": "Antes de terminar…\nggcats\n\nNo tengo idea del origen de este paquete, pero me da gusto saber que existe."
+  },
+  {
+    "objectID": "index.html#antes-de-terminar-3",
+    "href": "index.html#antes-de-terminar-3",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Antes de terminar…",
+    "text": "Antes de terminar…\ndatasaurus\n\nNo tan relacionado con ggplot2, pero cabe mencionarlo. El paquete datasaurus comenzó inspirado en el data set del mismo nombre creado por Alberto Cairo.\nCairo creó el data set enfatizando que: “Nunca confies en estadísticos descriptivos únicamente, siempre visualiza tus datos”.\nAl contrario de los otros dos, este sí está disponible en CRAN (es excelente para la enseñanza de correlaciones espurias)"
+  },
+  {
+    "objectID": "index.html#antes-de-terminar-4",
+    "href": "index.html#antes-de-terminar-4",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Antes de terminar…",
+    "text": "Antes de terminar…\ndatasaurus\n\nNo tan relacionado con ggplot2, pero cabe mencionarlo. El paquete datasaurus comenzó inspirado en el data set del mismo nombre creado por Alberto Cairo.\nCairo creó el data set enfatizando que: “Nunca confies en estadísticos descriptivos únicamente, siempre visualiza tus datos”."
+  },
+  {
+    "objectID": "index.html#autoevaluación",
+    "href": "index.html#autoevaluación",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Autoevaluación",
+    "text": "Autoevaluación\n\ntheme_light produce gráficos como\n\n\n\n\n\n\n\n\n\n\n\n\n\nEl siguiente gráfico\n\n\n\n\n\n\n\n\n\n\n\nEs producido por el(los) código(s):\n\n\n\n\nggplot(iris, aes(y=Petal.Width)) + \n  geom_boxplot(aes(fill=Species))\n\n\n\n\n\nggplot(iris, aes(y=Petal.Width, color=Species)) + \n  geom_boxplot()\n\n\n\n\n\nggplot(iris, aes(y=Petal.Width, fill=Species)) + \n  geom_boxplot()\n\n\n\n\n\n\nPara obtener el siguiente gráfico:\n\n\n\n\n\n\n\n\n\n\n\nDebo modificar la última línea del código:\n\nggplot(data = penguins,\n       mapping = aes(x = bill_length_mm, \n                     y = bill_depth_mm,\n                     color = species)) +\n  geom_point(alpha = 0.25, size = 5) +\n  scale_color_viridis()\n\n\n\npor:\n\nscale_color_viridis(option = \"G\")\nscale_color_viridis(discrete = T, option = \"G\")\nscale_color_viridis(discrete = T, option = \"H\")"
+  },
+  {
+    "objectID": "index.html#autoevaluación-1",
+    "href": "index.html#autoevaluación-1",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "Autoevaluación",
+    "text": "Autoevaluación\nLos datos del archivo de excel “rotXLS.xlsx” que mencionamos brevemente en el módulo anterior contiene información sobre el conteo de casos de rotavirus en Berlín desde el año 2001 hasta el 2020. Las variables de esta tabla de datos son:\n\n\n\ndate: fecha de cierre de la toma de datos\ncases: número de casos de rotavirus en la semana\nweek: semana epidemiológica\nincidence: número de casos/100000 habitantes\nFM: media diaria de velocidad del viento (m/s)\nRSK: media diaria de lluvia (mm)\n\n\n\nSHK_TAG: media diaria de nieve (cm)\nPM: media diaria de presión atmosférica (hPa)\nTMK: media diaria de temperatura (°C)\nTXK: media diaria de temperatura máxima (°C)\nTNK: media diaria de temperatura mínima (°C)\nUPM: media diaria de humedad relativa (%)\n\n\n\nEn nuestro proyecto podemos importar esta tabla con el siguiente código:\n\nlibrary(readxl)                           \nrot_berlin &lt;- read_excel(\"datos/rotXLS.xlsx\")\n\n\n\n\nIgnorando por un momento la naturaleza longitudinal de estos datos, podemos crear un gráfico de múltiples cajas de bigotes por semana epidemiológica para el número de casos, que se vería de esta manera:\n\n\n\n\n\n\n\n\n\n\n\n\n\nCon el siguiente código:\n\n\n\n\nggplot(rot_berlin, aes(x = week, y = cases)) +\n  geom_boxplot()\n\n\n\n\n\nggplot(rot_berlin, aes(x = factor(week), y = cases)) +\n  geom_boxplot()\n\n\n\n\n\nggplot(rot_berlin, aes(x = week, y = cases, group = week)) +\n  geom_boxplot()\n\n\nCon lo que hemos aprendido hasta el momento, si quisiéramos identificar y remover posibles outliers, podríamos usar el siguiente código:\n\n\nout_rot &lt;- boxplot(cases ~ factor(week), data = rot_berlin, plot = F)$out\nsub_rot &lt;- rot_berlin\nsub_rot &lt;- sub_rot[-which(sub_rot$cases %in% out_rot), ]\n\nEl número de outliers detectados es:\n\n\n\n232\n\n\n\n323\n\n\n\n156\n\n\n\n212\n\n\n\n\n\n\nMirando el gráfico de cajas y bigotes de sub_rot, podríamos llevar a cabo sucesivas nuevas identificaciones y remociones de outliers hasta terminar con un gráfico ya sin puntos fuera de los RIC. Teniendo en cuenta esto, cuál(es) de las siguientes afirmaciones es(son) verdadera(s)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo importa cuántas veces repita el proceso, eliminar todo outlier es una buena práctica\nAl eliminar un outlier, no hay garantía que otra observación se convierta en uno.\nSe aconsejaría remover outliers una sola vez, y continuar con los análisis.\nParecería que el RIC no sería un criterio suficiente para remover outliers."
+  },
+  {
+    "objectID": "index.html#r-no-es-solo-ciencia-y-seriedad",
+    "href": "index.html#r-no-es-solo-ciencia-y-seriedad",
+    "title": "Módulo 4: Visualización de datos con ggplot2",
+    "section": "R no es solo ciencia y seriedad",
+    "text": "R no es solo ciencia y seriedad\n\n\nAl ser un software de código abierto, abre las posibilidades a que programadores muy hábiles y con mucho tiempo libre por cierto, creen paquetes cuya utilidad puede ser prácticamente nula (al menos desde el punto de vista académico de publicar o morir).\nComo es de esperarse, la mayoría de estos no están disponibles en CRAN. Sin embargo, les dejo unos cuántos ejemplos"
+  }
+]
